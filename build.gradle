@@ -18,9 +18,17 @@ repositories {
     mavenCentral()
 }
 
+ext["jakarta-servlet.version"] = "5.0.0"
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation('org.springframework.boot:spring-boot-starter-websocket') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-jetty'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation 'org.projectlombok:lombok'

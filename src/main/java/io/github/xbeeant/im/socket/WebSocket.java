@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -47,6 +48,9 @@ public class WebSocket {
             webSockets.add(this);
             String uid = tokenToUid(token);
             Map<String, Session> userSession = sessionPool.get(uid);
+            if (null == userSession) {
+                userSession = new HashMap<>();
+            }
             userSession.put(token, session);
             sessionPool.put(token, userSession);
             log.info("【websocket消息】有新的连接，总数为:" + webSockets.size());
